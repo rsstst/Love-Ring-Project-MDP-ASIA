@@ -1,3 +1,6 @@
-# pr_mobile_mdp
+# Project MDP x ASIA - Mobile Programming
 
-A new Flutter project.
+## TODO
+- [ ] dummy
+- [ ] dummy
+- [ ] dummy
