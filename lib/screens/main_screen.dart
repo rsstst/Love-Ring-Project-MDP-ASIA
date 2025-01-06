@@ -3,6 +3,7 @@ import 'package:pr_mobile_mdp/screens/crush_screen.dart';
 import 'package:pr_mobile_mdp/screens/home_screen.dart';
 import 'package:pr_mobile_mdp/screens/more_screen.dart';
 import 'package:pr_mobile_mdp/screens/search_screen.dart';
+import 'package:pr_mobile_mdp/screens/login_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -15,6 +16,7 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   static const List<Widget> screenOptions = <Widget>[
+    LoginScreen(),
     HomeScreen(),
     SearchScreen(),
     CrushScreen(),
@@ -33,6 +35,8 @@ class _MainScreenState extends State<MainScreen> {
       body: screenOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Icon(Icons.access_alarm), label: 'TempLogin'),
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
           BottomNavigationBarItem(
