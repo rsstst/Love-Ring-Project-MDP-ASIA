@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pr_mobile_mdp/screens/Home_screen.dart';
 import 'package:pr_mobile_mdp/screens/Login_screen.dart';
+import 'package:pr_mobile_mdp/screens/edit_screen.dart';
+import 'package:pr_mobile_mdp/screens/setting_screen.dart';
 import 'package:pr_mobile_mdp/screens/signup_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,7 +28,9 @@ class MainApp extends StatelessWidget {
     routes : {
       '/login':(context) =>const LoginScreen(),
       '/signup':(context)=>const SignupScreen(),
-      '/home':(context)=>const HomeScreen()
+      '/home':(context)=>const HomeScreen(),
+      '/setting':(context) => const SettingScreen(),
+      '/edit':(context) => const EditScreen(),
     }
     );
   }
