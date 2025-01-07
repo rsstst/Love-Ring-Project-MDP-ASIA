@@ -178,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   //TODO : method sign up
                   GestureDetector(
                     onTap: () {
-                      // Handle sign-up logic
+                      Navigator.pushReplacementNamed(context, '/signup');
                     },
                     child: const Text(
                       'Sign up',
