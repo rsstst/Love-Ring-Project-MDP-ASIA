@@ -10,18 +10,18 @@ class EditScreen extends StatefulWidget {
 class _EditScreenState extends State<EditScreen> {
   @override
   Widget build(BuildContext context) {
-   return Scaffold(
-      backgroundColor: Color(0xFFF8F8FF), // Light background
+    return Scaffold(
+      backgroundColor: const Color(0xFFF8F8FF), // Light background
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
             Navigator.pushReplacementNamed(context, '/more');
           },
         ),
-        title: Text(
+        title: const Text(
           'Edit Profile',
           style: TextStyle(
             color: Colors.black,
@@ -39,17 +39,18 @@ class _EditScreenState extends State<EditScreen> {
             Stack(
               alignment: Alignment.bottomRight,
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 60,
-                  backgroundImage: AssetImage('assets/profile_picture.jpg'), // Replace with your image asset
+                  backgroundImage: AssetImage(
+                      'assets/profile_picture.jpg'), // Replace with your image asset
                 ),
                 Container(
-                  padding: EdgeInsets.all(6),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.all(6),
+                  decoration: const BoxDecoration(
                     color: Colors.black,
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.favorite,
                     color: Colors.white,
                     size: 20,
@@ -57,15 +58,15 @@ class _EditScreenState extends State<EditScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             // Name Field
-            EditableField(
+            const EditableField(
               label: 'Name',
               value: 'Aleena Calista Gabriella',
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             // Description Field
-            EditableField(
+            const EditableField(
               label: 'Description',
               value:
                   'Aku seorang gadis berusia 21 tahun. Asal Surabaya tapi sekarang lagi tinggal di Palembang. Aku sangat menyukai olahraga, terutama berlari dan voli.',
@@ -102,9 +103,9 @@ class EditableField extends StatelessWidget {
             color: Colors.grey[700],
           ),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(8),
@@ -112,7 +113,7 @@ class EditableField extends StatelessWidget {
               BoxShadow(
                 color: Colors.grey.withOpacity(0.1),
                 blurRadius: 6,
-                offset: Offset(0, 3),
+                offset: const Offset(0, 3),
               ),
             ],
           ),
@@ -124,14 +125,14 @@ class EditableField extends StatelessWidget {
                   value,
                   maxLines: maxLines,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     color: Colors.black,
                   ),
                 ),
               ),
-              SizedBox(width: 8),
-              Icon(
+              const SizedBox(width: 8),
+              const Icon(
                 Icons.edit,
                 color: Colors.blue,
                 size: 20,
