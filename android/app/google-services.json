@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "834612149330",
+    "project_id": "mdp-reg-flutter",
+    "storage_bucket": "mdp-reg-flutter.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:834612149330:android:6b2008d5f29b442cfeb38b",
+        "android_client_info": {
+          "package_name": "com.mdpgacoan.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLipDH6ElBp7z9g0uVZNz1h4MRU22wqJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

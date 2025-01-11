@@ -15,10 +15,11 @@ class MoreScreen extends StatelessWidget {
               const SizedBox(height: 32),
 
               // Profile Picture
-              Center(
+              const Center(
                 child: CircleAvatar(
                   radius: 60,
-                  backgroundImage: NetworkImage('https://i.pinimg.com/550x/b0/0e/36/b00e36dac290fa0e34db0a40a23c7d53.jpg'),
+                  backgroundImage: NetworkImage(
+                      'https://i.pinimg.com/550x/b0/0e/36/b00e36dac290fa0e34db0a40a23c7d53.jpg'),
                 ),
               ),
 
@@ -81,7 +82,7 @@ class MoreScreen extends StatelessWidget {
                       side: BorderSide(color: Colors.grey.shade300),
                     ),
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
@@ -90,8 +91,8 @@ class MoreScreen extends StatelessWidget {
                             Icons.edit_outlined,
                             color: Color(0xFF6F3DD2),
                           ),
-                          const SizedBox(width: 8),
-                          const Text(
+                          SizedBox(width: 8),
+                          Text(
                             'Edit Profile',
                             style: TextStyle(
                               fontSize: 16,
@@ -100,7 +101,7 @@ class MoreScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const Icon(
+                      Icon(
                         Icons.arrow_forward_ios,
                         size: 16,
                         color: Colors.grey,
@@ -127,7 +128,7 @@ class MoreScreen extends StatelessWidget {
                       side: BorderSide(color: Colors.grey.shade300),
                     ),
                   ),
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
@@ -136,8 +137,8 @@ class MoreScreen extends StatelessWidget {
                             Icons.settings_outlined,
                             color: Color(0xFF6F3DD2),
                           ),
-                          const SizedBox(width: 8),
-                          const Text(
+                          SizedBox(width: 8),
+                          Text(
                             'Settings',
                             style: TextStyle(
                               fontSize: 16,
@@ -146,7 +147,7 @@ class MoreScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const Icon(
+                      Icon(
                         Icons.arrow_forward_ios,
                         size: 16,
                         color: Colors.grey,

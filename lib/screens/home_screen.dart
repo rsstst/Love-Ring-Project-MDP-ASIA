@@ -15,15 +15,15 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'Heart ID',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 20),
-            Row(
+            const SizedBox(height: 20),
+            const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('D41W615'),
@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Text('1238'),
               ],
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             // Lingkaran-lingkaran konsentris
             Stack(
               alignment: Alignment.center,
@@ -49,16 +49,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   radius: 60,
                   backgroundColor: Colors.blue.shade100.withOpacity(0.6),
                 ),
-                Icon(Icons.favorite, color: Colors.pink, size: 40),
+                const Icon(Icons.favorite, color: Colors.pink, size: 40),
               ],
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             ElevatedButton(
               onPressed: () {
                 // Tambahkan logika untuk tombol "Activate" di sini
                 print('Activate button pressed');
               },
-              child: Text('Activate'),
+              child: const Text('Activate'),
             ),
           ],
         ),

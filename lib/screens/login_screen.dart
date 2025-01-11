@@ -133,17 +133,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     String username = _usernameController.text;
                     String password = _passwordController.text;
 
-                    if (validateLogin(username, password)){
-                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                    if (validateLogin(username, password)) {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
                       await prefs.setBool('isLoggedIn', true);
-                      await prefs.setString('username',username);
-                      Navigator.pushReplacementNamed(context, '/home');
-
-                    }else{
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Invalid username or password'))
-                      );
-
+                      await prefs.setString('username', username);
+                      Navigator.pushReplacementNamed(context, '/main');
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('Invalid username or password')));
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -199,14 +197,12 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  bool validateLogin (String username, String Password){
-    for(User user in userList){
-      if(user.username == username && user.password == Password) {
-      return true; 
+  bool validateLogin(String username, String Password) {
+    for (User user in userList) {
+      if (user.username == username && user.password == Password) {
+        return true;
+      }
     }
+    return false;
   }
-  return false;
-}
-
-    
 }

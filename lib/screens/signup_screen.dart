@@ -8,6 +8,18 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   bool _isChecked = false;
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
@@ -33,7 +45,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
               // Spacer for Logo/Icon
               const SizedBox(height: 16),
-
               // Centered Logo/Icon
               Center(
                 child: Icon(
@@ -71,16 +82,34 @@ class _SignupScreenState extends State<SignupScreen> {
               const SizedBox(height: 32),
 
               // Username Field
-              _buildTextField(
-                labelText: "Enter your username",
-                prefixIcon: Icons.person_outline,
+              TextField(
+                decoration: InputDecoration(
+                    labelText: "Enter your username",
+                    labelStyle: TextStyle(color: Colors.grey.shade500),
+                    filled: true,
+                    fillColor: Colors.grey.shade200,
+                    prefixIcon:
+                        const Icon(Icons.person_outline, color: Colors.grey),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide.none,
+                    )),
               ),
               const SizedBox(height: 16),
 
               // Email Field
-              _buildTextField(
-                labelText: "Enter your email address",
-                prefixIcon: Icons.email_outlined,
+              TextField(
+                decoration: InputDecoration(
+                    labelText: "Enter your email address",
+                    labelStyle: TextStyle(color: Colors.grey.shade500),
+                    filled: true,
+                    fillColor: Colors.grey.shade200,
+                    prefixIcon:
+                        const Icon(Icons.email_outlined, color: Colors.grey),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide.none,
+                    )),
               ),
               const SizedBox(height: 16),
 
@@ -93,36 +122,59 @@ class _SignupScreenState extends State<SignupScreen> {
               const SizedBox(height: 16),
 
               //gender Field
-          _buildTextField(
-            labelText: "Gender",
-            prefixIcon: Icons.person,
-            suffixIcon: DropdownButton<String>(
-              value: _selectedGender,
-              onChanged: (String? newValue) {
-                setState(() {
-                  _selectedGender = newValue;
-                });
-              },
-              items: <String>['Male', 'Female', 'Other']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              icon: const Icon(Icons.arrow_drop_down),
-              iconSize: 24,
-              elevation: 16,
-              style: const TextStyle(color: Colors.black),
-              underline: Container(
-                height: 2,
-                color: Colors.grey,
+              _buildTextField(
+                labelText: "Gender",
+                prefixIcon: Icons.person,
+                suffixIcon: DropdownButton<String>(
+                  value: _selectedGender,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _selectedGender = newValue;
+                    });
+                  },
+                  items: <String>['Male', 'Female', 'Other']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  icon: const Icon(Icons.arrow_drop_down),
+                  iconSize: 24,
+                  elevation: 16,
+                  style: const TextStyle(color: Colors.black),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.grey,
+                  ),
+                ),
               ),
-            ),
-          ),
-          const SizedBox(height: 16),
+              const SizedBox(height: 16),
 
               // Password Field
+              // TextField(
+              //   decoration: InputDecoration(
+              //       labelText: "Enter your password",
+              //       labelStyle: TextStyle(color: Colors.grey.shade500),
+              //       filled: true,
+              //       fillColor: Colors.grey.shade200,
+              //       prefixIcon:
+              //           const Icon(Icons.lock_outline, color: Colors.grey),
+              //       suffixIcon: IconButton(
+              //           icon: Icon(_isPasswordVisible
+              //               ? Icons.visibility
+              //               : Icons.visibility_off),
+              //           color: Colors.grey,
+              //           onPressed: () {
+              //             setState(() {
+              //               _isPasswordVisible = !_isPasswordVisible;
+              //             });
+              //           }),
+              //       border: OutlineInputBorder(
+              //         borderRadius: BorderRadius.circular(8),
+              //         borderSide: BorderSide.none,
+              //       )),
+              // ),
               _buildTextField(
                 labelText: "Enter your password",
                 prefixIcon: Icons.lock_outline,
@@ -157,8 +209,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   onPressed: () {
                     setState(() {
-                      _isConfirmPasswordVisible =
-                          !_isConfirmPasswordVisible;
+                      _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
                     });
                   },
                 ),
@@ -246,9 +297,8 @@ class _SignupScreenState extends State<SignupScreen> {
         labelStyle: TextStyle(color: Colors.grey.shade500),
         filled: true,
         fillColor: Colors.grey.shade200,
-        prefixIcon: prefixIcon != null
-            ? Icon(prefixIcon, color: Colors.grey)
-            : null,
+        prefixIcon:
+            prefixIcon != null ? Icon(prefixIcon, color: Colors.grey) : null,
         suffixIcon: suffixIcon,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
