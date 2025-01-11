@@ -38,15 +38,6 @@ var userList = [
       desc:
           'Aku adalah seorang pria berusia 28 tahun yang lahir di Bali dan kini tinggal di Jakarta. Hobiku adalah bermain sepak bola, bersepeda, dan mendalami seni peran. Sebagai seorang aktor, aku telah berperan dalam berbagai film dan sinetron yang menginspirasi banyak orang. Aku juga seorang penyanyi yang menikmati musik sebagai bagian dari hidupku.'),
   User(
-      Id: 'R1zK1N4Z4R',
-      username: 'Risky',
-      password: 'risky123',
-      nama: 'Rizky Nazar Mubarak Basloom',
-      loc: 'Jl. In Aja Dulu No. 1',
-      profil: 'images/risky.jpg',
-      desc:
-          'Aku adalah seorang pria berusia 28 tahun yang lahir di Bali dan kini tinggal di Jakarta. Hobiku adalah bermain sepak bola, bersepeda, dan mendalami seni peran. Sebagai seorang aktor, aku telah berperan dalam berbagai film dan sinetron yang menginspirasi banyak orang. Aku juga seorang penyanyi yang menikmati musik sebagai bagian dari hidupku.'),
-  User(
       Id: 'A1C7O2R8',
       username: 'Fikri',
       password: 'fikri123',
