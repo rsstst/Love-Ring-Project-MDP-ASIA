@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pr_mobile_mdp/models/user.dart';
 import 'package:pr_mobile_mdp/data/user_data.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -31,6 +33,25 @@ class _SearchScreenState extends State<SearchScreen> {
         filteredList = results;
       });
     }
+  }
+
+  Future<void> addToCrushList(User user) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> crushList =
+        prefs.getStringList('crushList') ?? []; // Ambil daftar crush
+
+    // Tambahkan user ke crushList
+    crushList.add(jsonEncode({
+      "name": user.nama,
+      "image": user.profil,
+      "loc": user.loc,
+    }));
+
+    // Simpan daftar crush yang diperbarui
+    await prefs.setStringList('crushList', crushList);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("${user.nama} added to crush list!")),
+    );
   }
 
   @override
