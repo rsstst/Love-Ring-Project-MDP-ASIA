@@ -3,6 +3,7 @@ import 'package:pr_mobile_mdp/auth_gate.dart';
 
 import 'package:pr_mobile_mdp/screens/Home_screen.dart';
 import 'package:pr_mobile_mdp/screens/Login_screen.dart';
+import 'package:pr_mobile_mdp/screens/crush_screen.dart';
 import 'package:pr_mobile_mdp/screens/edit_screen.dart';
 import 'package:pr_mobile_mdp/screens/main_screen.dart';
 import 'package:pr_mobile_mdp/screens/more_screen.dart';
@@ -45,6 +46,7 @@ class MainApp extends StatelessWidget {
           '/edit': (context) => const EditScreen(),
           '/search': (context) => const SearchScreen(),
           '/more': (context) => const MoreScreen(),
+          '/crush': (context) => const CrushScreen(),
         });
   }
 }

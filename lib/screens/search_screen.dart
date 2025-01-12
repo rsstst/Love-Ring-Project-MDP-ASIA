@@ -56,16 +56,14 @@ class _SearchScreenState extends State<SearchScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    // TODO: Input pencarian untuk mencari pengguna
+                    // Search input field
                     TextField(
                       controller: searchController,
                       onChanged: (value) {
-                        filterSearch(
-                            value); // TODO: Panggil filterSearch saat input berubah
+                        filterSearch(value);
                       },
                       decoration: InputDecoration(
-                        hintText:
-                            'Search Crush', // TODO: Ubah teks hint sesuai kebutuhan
+                        hintText: 'Search Crush',
                         prefixIcon: const Icon(Icons.search),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -73,7 +71,6 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    // TODO: Menampilkan hasil pencarian atau pesan jika tidak ada hasil
                     filteredList.isEmpty
                         ? Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -84,34 +81,84 @@ class _SearchScreenState extends State<SearchScreen> {
                                     ? ''
                                     : 'User Not Found',
                                 style: const TextStyle(
-                                    fontSize: 30, fontWeight: FontWeight.bold),
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ],
                           )
-                        : ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: filteredList.length,
-                            itemBuilder: (context, index) {
-                              final user = filteredList[index];
-                              return Card(
-                                child: ListTile(
-                                  leading: CircleAvatar(
-                                    backgroundImage: AssetImage(user
-                                        .profil), // TODO: Menampilkan foto profil pengguna
-                                  ),
-                                  title: Text(user
-                                      .nama), // TODO: Menampilkan nama pengguna
-                                  subtitle: Text(user
-                                      .loc), // TODO: Menampilkan lokasi pengguna
-                                  trailing: const Icon(Icons
-                                      .favorite_border), // TODO: Ikon favorit
+                        : Column(
+                            children: filteredList.map((user) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: GestureDetector(
                                   onTap: () {
-                                    // TODO: Navigasi ke halaman detail pengguna
+                                    // Navigate to the DetailScreen when tapped
+                                    Navigator.pushReplacementNamed(
+                                        context, '/detail');
                                   },
+                                  child: Container(
+                                    padding: const EdgeInsets.all(12.0),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          spreadRadius: 2,
+                                          blurRadius: 5,
+                                          offset: const Offset(0,
+                                              3), // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        CircleAvatar(
+                                          backgroundImage:
+                                              AssetImage(user.profil),
+                                          radius: 40,
+                                        ),
+                                        const SizedBox(width: 12),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                user.nama,
+                                                style: const TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 4),
+                                              Text(
+                                                user.loc,
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        IconButton(
+                                          icon:
+                                              const Icon(Icons.favorite_border),
+                                          onPressed: () {
+                                            // Navigate to the CrushScreen when favorite icon is pressed
+                                            Navigator.pushReplacementNamed(
+                                                context, '/crush');
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               );
-                            },
+                            }).toList(),
                           ),
                   ],
                 ),
