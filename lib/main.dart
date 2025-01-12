@@ -5,6 +5,7 @@ import 'package:pr_mobile_mdp/screens/Home_screen.dart';
 import 'package:pr_mobile_mdp/screens/Login_screen.dart';
 import 'package:pr_mobile_mdp/screens/edit_screen.dart';
 import 'package:pr_mobile_mdp/screens/main_screen.dart';
+import 'package:pr_mobile_mdp/screens/more_screen.dart';
 import 'package:pr_mobile_mdp/screens/search_screen.dart';
 import 'package:pr_mobile_mdp/screens/setting_screen.dart';
 import 'package:pr_mobile_mdp/screens/signup_screen.dart';
