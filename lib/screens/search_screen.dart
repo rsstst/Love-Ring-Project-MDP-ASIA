@@ -1,10 +1,204 @@
 import 'package:flutter/material.dart';
+import 'package:pr_mobile_mdp/models/user.dart';
+import 'package:pr_mobile_mdp/data/user_data.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
 
   @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  // TODO: Daftar hasil pencarian
+  List<User> filteredList = [];
+  // TODO: Controller untuk input pencarian
+  TextEditingController searchController = TextEditingController();
+
+  // TODO: Fungsi untuk memfilter pencarian berdasarkan huruf depan nama
+  void filterSearch(String query) {
+    if (query.isEmpty) {
+      setState(() {
+        filteredList = [];
+      });
+    } else {
+      final results = userList
+          .where((user) =>
+              user.nama.isNotEmpty &&
+              user.nama[0].toLowerCase() == query.toLowerCase())
+          .toList();
+      setState(() {
+        filteredList = results;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Search for New Crush'),
+        titleTextStyle: TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+        ),
+        centerTitle: true,
+      ),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Visibility(
+              visible: filteredList.isEmpty,
+              child: const CircleBackground(),
+            ),
+            SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    // Search input field
+                    TextField(
+                      controller: searchController,
+                      onChanged: (value) {
+                        filterSearch(value);
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Search Crush',
+                        prefixIcon: const Icon(Icons.search),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    filteredList.isEmpty
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(height: 300),
+                              Text(
+                                searchController.text.isEmpty
+                                    ? ''
+                                    : 'User Not Found',
+                                style: const TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          )
+                        : Column(
+                            children: filteredList.map((user) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    // Navigate to the DetailScreen when tapped
+                                    Navigator.pushReplacementNamed(
+                                        context, '/detail');
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.all(12.0),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.2),
+                                          spreadRadius: 2,
+                                          blurRadius: 5,
+                                          offset: const Offset(0,
+                                              3), // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        CircleAvatar(
+                                          backgroundImage:
+                                              AssetImage(user.profil),
+                                          radius: 40,
+                                        ),
+                                        const SizedBox(width: 12),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                user.nama,
+                                                style: const TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 4),
+                                              Text(
+                                                user.loc,
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        IconButton(
+                                          icon:
+                                              const Icon(Icons.favorite_border),
+                                          onPressed: () {
+                                            // Navigate to the CrushScreen when favorite icon is pressed
+                                            Navigator.pushReplacementNamed(
+                                                context, '/crush');
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CircleBackground extends StatelessWidget {
+  const CircleBackground({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          CircleAvatar(
+            radius: 100,
+            backgroundColor: Colors.blue.shade100.withOpacity(0.2),
+          ),
+          CircleAvatar(
+            radius: 80,
+            backgroundColor: Colors.blue.shade100.withOpacity(0.4),
+          ),
+          CircleAvatar(
+            radius: 60,
+            backgroundColor: Colors.blue.shade100.withOpacity(0.6),
+          ),
+          const Icon(
+            Icons.search_rounded,
+            color: Colors.black,
+            size: 40,
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -9,7 +9,7 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen> {
   bool isDarkTheme = false;
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,7 +155,7 @@ class _SettingScreenState extends State<SettingScreen> {
           _buildSettingsOption(
             title: 'Log out',
             onTap: () {
-              // Handle log out tap
+              Navigator.pushReplacementNamed(context, '/login');
             },
           ),
         ],
