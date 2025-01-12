@@ -9,6 +9,32 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen> {
   bool isDarkTheme = false;
+  void _showLogoutConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Log Out'),
+          content: const Text('Are you sure you want to log out?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Tutup dialog
+              },
+              child: const Text('No'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.pushReplacementNamed(context, '/login');
+              },
+              child: const Text('Yes'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +181,7 @@ class _SettingScreenState extends State<SettingScreen> {
           _buildSettingsOption(
             title: 'Log out',
             onTap: () {
-              Navigator.pushReplacementNamed(context, '/login');
+              _showLogoutConfirmationDialog();
             },
           ),
         ],
