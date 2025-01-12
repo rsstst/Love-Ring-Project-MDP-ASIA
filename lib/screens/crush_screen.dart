@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CrushScreen extends StatefulWidget {
   const CrushScreen({super.key});
@@ -10,7 +11,7 @@ class CrushScreen extends StatefulWidget {
 class _CrushScreenState extends State<CrushScreen> {
   final List<Map<String, dynamic>> crushList = [
     {
-      "name": "Reza arab",
+      "name": "Reza Arab",
       "image": "assets/reza.jpg",
       "code": "4E0987H",
       "likes": 988,
@@ -32,69 +33,91 @@ class _CrushScreenState extends State<CrushScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text("My Crush"),
-        backgroundColor: Colors.purple[300],
+        backgroundColor: Colors.blue.shade600,
+        centerTitle: true,
+        elevation: 0,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8,
+            crossAxisSpacing: 16,
+            mainAxisSpacing: 16,
             childAspectRatio: 0.75,
           ),
           itemCount: crushList.length,
           itemBuilder: (context, index) {
             final crush = crushList[index];
-            return Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage(crush["image"]),
-                    radius: 40,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    crush["name"],
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 4),
-                  Text("Code: ${crush["code"]}"),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.favorite, color: const Color.fromARGB(255, 210, 115, 174)),
-                      const SizedBox(width: 4),
-                      Text("${crush["likes"]}"),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Tambahkan logika untuk tombol "UNCRUSH"
-                      print('${crush["name"]} uncrushed');
-                    },
-                    child: const Text("UNCRUSH"),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple[200],  // Gunakan backgroundColor
-                      foregroundColor: Colors.white,       // Gunakan foregroundColor untuk warna teks
-                    ),
-                  ),
-                ],
-              ),
-            );
+            return buildCrushCard(crush);
           },
+        ),
+      ),
+    );
+  }
+
+  Widget buildCrushCard(Map<String, dynamic> crush) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      elevation: 5,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              backgroundImage: AssetImage(crush["image"]),
+              radius: 40,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              crush["name"],
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Colors.black,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              "Code: ${crush["code"]}",
+              style: const TextStyle(fontSize: 14, color: Colors.grey),
+            ),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.favorite, color: Colors.pinkAccent),
+                const SizedBox(width: 4),
+                Text(
+                  "${crush["likes"]}",
+                  style: const TextStyle(fontSize: 14),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                print('${crush["name"]} uncrushed');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue.shade600,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+              ),
+              child: const Text(
+                "UNCRUSH",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
         ),
       ),
     );
