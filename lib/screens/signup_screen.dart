@@ -38,7 +38,7 @@ class _SignupScreenState extends State<SignupScreen> {
               // Back Icon
               IconButton(
                 onPressed: () {
-                  // Handle back navigation
+                  Navigator.pushReplacementNamed(context, '/login');
                 },
                 icon: const Icon(Icons.arrow_back, color: Colors.black),
               ),
