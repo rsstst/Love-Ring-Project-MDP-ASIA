@@ -8,6 +8,7 @@ import 'package:pr_mobile_mdp/screens/main_screen.dart';
 import 'package:pr_mobile_mdp/screens/search_screen.dart';
 import 'package:pr_mobile_mdp/screens/setting_screen.dart';
 import 'package:pr_mobile_mdp/screens/signup_screen.dart';
+import 'package:pr_mobile_mdp/screens/more_screen.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -43,6 +44,7 @@ class MainApp extends StatelessWidget {
           '/setting': (context) => const SettingScreen(),
           '/edit': (context) => const EditScreen(),
           '/search': (context) => const SearchScreen(),
+          '/more': (context) => const MoreScreen(),
         });
   }
 }
