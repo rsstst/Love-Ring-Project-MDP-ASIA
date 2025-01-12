@@ -20,13 +20,46 @@ class _CrushScreenState extends State<CrushScreen> {
 
   Future<void> loadCrushList() async {
     final prefs = await SharedPreferences.getInstance();
-    List<String> savedCrushList = prefs.getStringList('crushList') ?? [];
-    setState(() {
-      crushList = savedCrushList
-          .map((item) => jsonDecode(item) as Map<String, dynamic>)
-          .toList();
-    });
+    List<String>? savedCrushList = prefs.getStringList('crushList');
+
+    if (savedCrushList != null) {
+      try {
+        setState(() {
+          crushList = savedCrushList
+              .map((item) => jsonDecode(item) as Map<String, dynamic>)
+              .toList();
+        });
+      } catch (e) {
+        // Handle error if JSON decoding fails
+        print("Error decoding crush list: $e");
+      }
+    } else {
+      setState(() {
+        crushList = [];
+      });
+    }
   }
+  
+  Future<void> saveCrushList() async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> encodedList = crushList.map((item) => jsonEncode(item)).toList();
+    await prefs.setStringList('crushList', encodedList);
+  }
+
+  Future<void> removeCrush(Map<String, dynamic> crush) async {
+    setState(() {
+      crushList.remove(crush);
+    });
+
+    final prefs = await SharedPreferences.getInstance();
+    List<String> updatedList = crushList.map((item) => jsonEncode(item)).toList();
+    await prefs.setStringList('crushList', updatedList);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('${crush["name"]} removed from Crush List!')),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -92,6 +125,35 @@ class _CrushScreenState extends State<CrushScreen> {
               crush["loc"],
               style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.favorite, color: Colors.pinkAccent),
+                const SizedBox(width: 4),
+                Text(
+                  "${crush["likes"]}",
+                  style: const TextStyle(fontSize: 14),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                removeCrush(crush);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue.shade600,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+              ),
+              child: const Text(
+                "UNCRUSH",
+                style: TextStyle(color: Colors.white),
+              ),
+            )
+
           ],
         ),
       ),
