@@ -19,7 +19,7 @@ class _SearchScreenState extends State<SearchScreen> {
   void filterSearch(String query) {
     if (query.isEmpty) {
       setState(() {
-        filteredList = []; // TODO: Kosongkan hasil jika query kosong
+        filteredList = [];
       });
     } else {
       final results = userList
@@ -28,7 +28,7 @@ class _SearchScreenState extends State<SearchScreen> {
               user.nama[0].toLowerCase() == query.toLowerCase())
           .toList();
       setState(() {
-        filteredList = results; // TODO: Perbarui daftar hasil
+        filteredList = results;
       });
     }
   }
@@ -47,9 +47,10 @@ class _SearchScreenState extends State<SearchScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-            // TODO: Menambahkan background dengan lingkaran-lingkaran
-            const CircleBackground(),
-            // Scrollable area untuk konten utama
+            Visibility(
+              visible: filteredList.isEmpty,
+              child: const CircleBackground(),
+            ),
             SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -74,14 +75,18 @@ class _SearchScreenState extends State<SearchScreen> {
                     const SizedBox(height: 10),
                     // TODO: Menampilkan hasil pencarian atau pesan jika tidak ada hasil
                     filteredList.isEmpty
-                        ? Center(
-                            child: Text(
-                              searchController.text.isEmpty
-                                  ? ''
-                                  : 'User Not Found', // TODO: Pesan jika tidak ada hasil pencarian
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(height: 300),
+                              Text(
+                                searchController.text.isEmpty
+                                    ? ''
+                                    : 'User Not Found',
+                                style: const TextStyle(
+                                    fontSize: 30, fontWeight: FontWeight.bold),
+                              ),
+                            ],
                           )
                         : ListView.builder(
                             shrinkWrap: true,
@@ -102,7 +107,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                   trailing: const Icon(Icons
                                       .favorite_border), // TODO: Ikon favorit
                                   onTap: () {
-                                    // TODO: Navigasi ke halaman detail pengguna saat item diklik
+                                    // TODO: Navigasi ke halaman detail pengguna
                                   },
                                 ),
                               );
@@ -124,47 +129,29 @@ class CircleBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned(
-          top: MediaQuery.of(context).size.height * 0.05,
-          left: MediaQuery.of(context).size.width * 0.1,
-          child: CircleWidget(radius: 50, color: Colors.blue.withOpacity(0.3)),
-        ),
-        Positioned(
-          top: MediaQuery.of(context).size.height * 0.2,
-          right: MediaQuery.of(context).size.width * 0.15,
-          child: CircleWidget(
-              radius: 30, color: Colors.redAccent.withOpacity(0.8)),
-        ),
-        Positioned(
-          bottom: MediaQuery.of(context).size.height * 0.25,
-          left: MediaQuery.of(context).size.width * 0.2,
-          child: CircleWidget(radius: 60, color: Colors.blue.withOpacity(0.7)),
-        ),
-        Positioned(
-          bottom: MediaQuery.of(context).size.height * 0.3,
-          right: MediaQuery.of(context).size.width * 0.25,
-          child:
-              CircleWidget(radius: 20, color: Colors.purple.withOpacity(0.4)),
-        ),
-      ],
-    );
-  }
-}
-
-class CircleWidget extends StatelessWidget {
-  final double radius;
-  final Color color;
-
-  const CircleWidget({Key? key, required this.radius, required this.color})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return CircleAvatar(
-      radius: radius,
-      backgroundColor: color,
+    return Center(
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          CircleAvatar(
+            radius: 100,
+            backgroundColor: Colors.blue.shade100.withOpacity(0.2),
+          ),
+          CircleAvatar(
+            radius: 80,
+            backgroundColor: Colors.blue.shade100.withOpacity(0.4),
+          ),
+          CircleAvatar(
+            radius: 60,
+            backgroundColor: Colors.blue.shade100.withOpacity(0.6),
+          ),
+          const Icon(
+            Icons.search_rounded,
+            color: Colors.black,
+            size: 40,
+          ),
+        ],
+      ),
     );
   }
 }
