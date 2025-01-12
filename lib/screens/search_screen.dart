@@ -170,8 +170,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                               const Icon(Icons.favorite_border),
                                           onPressed: () {
                                             // Navigate to the CrushScreen when favorite icon is pressed
-                                            Navigator.pushReplacementNamed(
-                                                context, '/crush');
+                                            addToCrushList(user);
                                           },
                                         ),
                                       ],
