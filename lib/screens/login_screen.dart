@@ -1,3 +1,4 @@
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pr_mobile_mdp/models/user.dart';
 import 'package:pr_mobile_mdp/data/user_data.dart';
@@ -11,22 +12,31 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _idController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  String _errorText = '';
+  bool _obscurePassword = true;
+  
+  void clearFields() {
+    setState(() {
+      _usernameController.clear();
+      _passwordController.clear(); 
+      _errorText = ''; 
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: const EdgeInsets.symmetric(horizontal: 25.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 40),
+              const SizedBox(height: 150),
               // Title
               const Text(
                 'WELCOME\nFRIEND !',
@@ -45,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Username / Heart ID',
+                    'Username',
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -53,10 +63,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  TextField(
+                  TextFormField(
                     controller: _usernameController,
                     decoration: InputDecoration(
-                      hintText: 'Enter username / Heart ID',
+                      hintText: 'Enter username',
                       hintStyle: TextStyle(color: Colors.grey.shade500),
                       filled: true,
                       fillColor: Colors.grey.shade200,
@@ -83,8 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  TextField(
-                    obscureText: true,
+                  TextFormField(
                     controller: _passwordController,
                     decoration: InputDecoration(
                       hintText: 'Enter password',
@@ -96,11 +105,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderSide: BorderSide.none,
                       ),
                       //TODO : method see password
-                      suffixIcon: Icon(
-                        Icons.visibility_off,
-                        color: Colors.grey.shade500,
+                      errorText: _errorText.isNotEmpty ? _errorText : null,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _obscurePassword = !_obscurePassword;
+                          });
+                        },
+                        icon: Icon(
+                          _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                        ),
                       ),
                     ),
+                    obscureText: _obscurePassword,
                   ),
                 ],
               ),
@@ -110,10 +127,8 @@ class _LoginScreenState extends State<LoginScreen> {
               Align(
                 alignment: Alignment.centerRight,
                 child: GestureDetector(
-                  //TODO : method forget password
-                  onTap: () {
-                    // Handle forgot password logic
-                  },
+                  onTap:clearFields,
+                
                   child: const Text(
                     'Forgot password?',
                     style: TextStyle(
@@ -176,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   //TODO : method sign up
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacementNamed(context, '/signup');
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SignInScreen()));
                     },
                     child: const Text(
                       'Sign up',
@@ -197,12 +212,13 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  bool validateLogin(String username, String Password) {
-    for (User user in userList) {
-      if (user.username == username && user.password == Password) {
-        return true;
+  bool validateLogin(String username, String password) {
+    for (User user in userList.values) { // Mengiterasi nilai dalam Map
+      if (user.username == username && user.password == password) {
+       return true;
       }
     }
     return false;
   }
 }
+
