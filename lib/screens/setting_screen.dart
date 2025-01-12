@@ -23,7 +23,7 @@ class _SettingScreenState extends State<SettingScreen> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushReplacementNamed(context, '/more');
           },
         ),
         title: const Text(

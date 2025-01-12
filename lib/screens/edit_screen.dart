@@ -18,7 +18,7 @@ class _EditScreenState extends State<EditScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushReplacementNamed(context, '/more');
           },
         ),
         title: const Text(
@@ -41,8 +41,8 @@ class _EditScreenState extends State<EditScreen> {
               children: [
                 const CircleAvatar(
                   radius: 60,
-                  backgroundImage: NetworkImage(
-                      'https://i.pinimg.com/550x/b0/0e/36/b00e36dac290fa0e34db0a40a23c7d53.jpg'), // Replace with your image asset
+                  backgroundImage: AssetImage(
+                      'assets/profile_picture.jpg'), // Replace with your image asset
                 ),
                 Container(
                   padding: const EdgeInsets.all(6),
