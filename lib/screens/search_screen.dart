@@ -120,7 +120,7 @@ class _SearchScreenState extends State<SearchScreen> {
 }
 
 class CircleBackground extends StatelessWidget {
-  const CircleBackground({Key? key}) : super(key: key);
+  const CircleBackground({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -157,8 +157,7 @@ class CircleWidget extends StatelessWidget {
   final double radius;
   final Color color;
 
-  const CircleWidget({Key? key, required this.radius, required this.color})
-      : super(key: key);
+  const CircleWidget({super.key, required this.radius, required this.color});
 
   @override
   Widget build(BuildContext context) {
