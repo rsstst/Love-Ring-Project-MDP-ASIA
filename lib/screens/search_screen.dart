@@ -24,7 +24,7 @@ class _SearchScreenState extends State<SearchScreen> {
         filteredList = [];
       });
     } else {
-      final results = userList.values
+      final results = userList
           .where((user) =>
               user.nama.isNotEmpty &&
               user.nama[0].toLowerCase() == query.toLowerCase())

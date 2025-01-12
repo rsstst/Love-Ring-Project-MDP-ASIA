@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pr_mobile_mdp/screens/login_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -39,7 +38,7 @@ class _SignupScreenState extends State<SignupScreen> {
               // Back Icon
               IconButton(
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                  // Handle back navigation
                 },
                 icon: const Icon(Icons.arrow_back, color: Colors.black),
               ),
@@ -257,7 +256,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                    // Handle continue logic
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
