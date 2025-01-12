@@ -192,7 +192,7 @@ class _SearchScreenState extends State<SearchScreen> {
 }
 
 class CircleBackground extends StatelessWidget {
-  const CircleBackground({Key? key}) : super(key: key);
+  const CircleBackground({super.key});
 
   @override
   Widget build(BuildContext context) {
