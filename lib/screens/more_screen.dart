@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pr_mobile_mdp/screens/edit_screen.dart';
+import 'package:pr_mobile_mdp/screens/setting_screen.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({super.key});
@@ -72,7 +74,8 @@ class MoreScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/edit');
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => EditScreen()),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
@@ -118,7 +121,8 @@ class MoreScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/setting');
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SettingScreen()),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
