@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pr_mobile_mdp/models/user.dart';
 import 'package:pr_mobile_mdp/data/user_data.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
+import 'package:pr_mobile_mdp/screens/detail_screen.dart';
+
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -115,67 +115,14 @@ class _SearchScreenState extends State<SearchScreen> {
                                     const EdgeInsets.symmetric(vertical: 8.0),
                                 child: GestureDetector(
                                   onTap: () {
-                                    // Navigate to the DetailScreen when tapped
-                                    Navigator.pushReplacementNamed(
-                                        context, '/detail');
+                                    // TODO: Navigasi ke halaman detail pengguna saat item diklik
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => DetailScreen(user: user),
+                                      ),
+                                    );
                                   },
-                                  child: Container(
-                                    padding: const EdgeInsets.all(12.0),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(8),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.2),
-                                          spreadRadius: 2,
-                                          blurRadius: 5,
-                                          offset: const Offset(0,
-                                              3), // changes position of shadow
-                                        ),
-                                      ],
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        CircleAvatar(
-                                          backgroundImage:
-                                              AssetImage(user.profil),
-                                          radius: 40,
-                                        ),
-                                        const SizedBox(width: 12),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                user.nama,
-                                                style: const TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              const SizedBox(height: 4),
-                                              Text(
-                                                user.loc,
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.grey,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        IconButton(
-                                          icon:
-                                              const Icon(Icons.favorite_border),
-                                          onPressed: () {
-                                            // Navigate to the CrushScreen when favorite icon is pressed
-                                            addToCrushList(user);
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ),
                                 ),
                               );
                             }).toList(),
@@ -192,7 +139,7 @@ class _SearchScreenState extends State<SearchScreen> {
 }
 
 class CircleBackground extends StatelessWidget {
-  const CircleBackground({super.key});
+  const CircleBackground({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
