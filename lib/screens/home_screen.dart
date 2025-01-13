@@ -11,15 +11,52 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
   String username = '';
   String Id = '4N01MS5';
+  late AnimationController _controller;
+  late Animation<double> _circleAnimation1;
+  late Animation<double> _circleAnimation2;
+  late Animation<double> _circleAnimation3;
+  late Animation<double> _circleAnimation4;
+  late Animation<double> _circleAnimation5;
+  late Animation<double> _heartBeatAnimation;
+
 
   @override
   void initState() {
     super.initState();
     _loadUserData();
+
+        // Animasi Controller
+    _controller = AnimationController(
+      duration: const Duration(seconds: 3),
+      vsync: this,
+    )..repeat(reverse: true);
+
+    // Animasi Lingkaran
+    _circleAnimation1 = Tween<double>(begin: 0.0, end: 150.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+    _circleAnimation2 = Tween<double>(begin: 0.0, end: 200.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+    _circleAnimation3 = Tween<double>(begin: 0.0, end: 250.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+    _circleAnimation4 = Tween<double>(begin: 0.0, end: 300.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+    _circleAnimation5 = Tween<double>(begin: 0.0, end: 350.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+
+    // Animasi Detak Jantung
+    _heartBeatAnimation = Tween<double>(begin: 1.0, end: 1.4).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
   }
+
 
   _loadUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -154,23 +191,76 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Lingkaran-lingkaran konsentris
+            // Lingkaran-lingkaran
             Stack(
               alignment: Alignment.center,
               children: [
-                CircleAvatar(
-                  radius: 100,
-                  backgroundColor: Colors.blue.shade100.withOpacity(0.2),
+                AnimatedBuilder(
+                  animation: _controller,
+                  builder: (context, child) => Container(
+                    width: _circleAnimation5.value,
+                    height: _circleAnimation5.value,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.blue.shade100.withOpacity(0.2),
+                    ),
+                  ),
                 ),
-                CircleAvatar(
-                  radius: 80,
-                  backgroundColor: Colors.blue.shade100.withOpacity(0.4),
+                AnimatedBuilder(
+                  animation: _controller,
+                  builder: (context, child) => Container(
+                    width: _circleAnimation4.value,
+                    height: _circleAnimation4.value,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.blue.shade100.withOpacity(0.3),
+                    ),
+                  ),
                 ),
-                CircleAvatar(
-                  radius: 60,
-                  backgroundColor: Colors.blue.shade100.withOpacity(0.6),
+                AnimatedBuilder(
+                  animation: _controller,
+                  builder: (context, child) => Container(
+                    width: _circleAnimation3.value,
+                    height: _circleAnimation3.value,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.blue.shade100.withOpacity(0.4),
+                    ),
+                  ),
                 ),
-                const Icon(Icons.favorite, color: Colors.pink, size: 40),
+                AnimatedBuilder(
+                  animation: _controller,
+                  builder: (context, child) => Container(
+                    width: _circleAnimation2.value,
+                    height: _circleAnimation2.value,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.blue.shade100.withOpacity(0.5),
+                    ),
+                  ),
+                ),
+                AnimatedBuilder(
+                  animation: _controller,
+                  builder: (context, child) => Container(
+                    width: _circleAnimation1.value,
+                    height: _circleAnimation1.value,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.blue.shade100.withOpacity(0.6),
+                    ),
+                  ),
+                ),
+                AnimatedBuilder(
+                  animation: _heartBeatAnimation,
+                  builder: (context, child) => Transform.scale(
+                    scale: _heartBeatAnimation.value,
+                    child: const Icon(
+                      Icons.favorite,
+                      color: Colors.pink,
+                      size: 40,
+                    ),
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 40),
@@ -180,6 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               child: const Text('Activate'),
             ),
+          
           ],
         ),
       ),
