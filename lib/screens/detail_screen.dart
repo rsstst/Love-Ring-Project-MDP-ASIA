@@ -18,7 +18,7 @@ class DetailScreen extends StatelessWidget {
       "name": user.nama,
       "loc": user.loc,
       "image": user.profil,
-      "likes": 0 // Add default likes value
+      "likes": 1 // Add default likes value
     };
 
     // Add new crush
