@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'crush_screen.dart'; // Import CrushScreen
-import 'package:pr_mobile_mdp/models/user.dart';
+import 'package:mdp_gacoan/models/user.dart';
 
 class DetailScreen extends StatelessWidget {
   final User user;

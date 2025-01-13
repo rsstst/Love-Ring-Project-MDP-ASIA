@@ -1,23 +1,20 @@
-name: pr_mobile_mdp
+name: mdp_gacoan
 description: "A new Flutter project."
-publish_to: "none"
+publish_to: 'none'
 version: 0.1.0
 
 environment:
-  sdk: ^3.5.3
+  sdk: ^3.6.0
 
 dependencies:
-  firebase_auth: ^5.4.0
-  firebase_core: ^3.10.0
-  firebase_ui_auth: ^1.16.0
   flutter:
     sdk: flutter
-  shared_preferences:
+  shared_preferences: ^2.3.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true

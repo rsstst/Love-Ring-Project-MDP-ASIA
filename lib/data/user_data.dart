@@ -1,4 +1,4 @@
-import 'package:pr_mobile_mdp/models/user.dart';
+import 'package:mdp_gacoan/models/user.dart';
 
 Map<String, User> userList = {
   'Gigih': User(

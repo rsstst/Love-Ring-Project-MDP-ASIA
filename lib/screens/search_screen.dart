@@ -1,9 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:pr_mobile_mdp/models/user.dart';
-import 'package:pr_mobile_mdp/data/user_data.dart';
-import 'package:pr_mobile_mdp/screens/detail_screen.dart';
+import 'package:mdp_gacoan/models/user.dart';
+import 'package:mdp_gacoan/data/user_data.dart';
+import 'package:mdp_gacoan/screens/detail_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 

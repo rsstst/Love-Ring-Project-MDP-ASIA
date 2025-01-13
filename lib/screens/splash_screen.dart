@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:pr_mobile_mdp/screens/home_screen.dart';
 import 'dart:async';
-import 'package:pr_mobile_mdp/screens/login_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:mdp_gacoan/screens/home_screen.dart';
+import 'package:mdp_gacoan/screens/login_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   final bool isLoggedIn;
@@ -11,12 +11,12 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
         Future.delayed(Duration(seconds: 3), () {
       if (isLoggedIn) {
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const HomeScreen()), 
         ); 
       } else {
-        Navigator.pushReplacement(
+        Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const LoginScreen()), 
         ); 

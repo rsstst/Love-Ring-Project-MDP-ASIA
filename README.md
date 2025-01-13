@@ -1,6 +1,3 @@
-# Project MDP x ASIA - Mobile Programming
+# mdp_gacoan
 
-## TODO
-- [ ] dummy
-- [ ] dummy
-- [ ] dummy
+A new Flutter project.
