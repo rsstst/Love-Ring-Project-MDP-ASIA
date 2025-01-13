@@ -18,7 +18,7 @@ class DetailScreen extends StatelessWidget {
       "name": user.nama,
       "loc": user.loc,
       "image": user.profil,
-      "likes": 0 // Add default likes value
+      "likes": 7 // Add default likes value
     };
 
     // Add new crush
@@ -48,63 +48,64 @@ class DetailScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CircleAvatar(
-                radius: 50,
-                backgroundImage: NetworkImage(user.profil),
-              ),
-              SizedBox(height: 8),
-              Text(
-                'ID: ${user.Id}',
-                style: TextStyle(fontSize: 16, color: Colors.grey),
+              Center(
+                child: CircleAvatar(
+                  radius: 60, // Increased radius
+                  backgroundImage: NetworkImage(user.profil),
+                ),
               ),
               SizedBox(height: 16),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.person, color: Colors.blue),
                   SizedBox(width: 8),
                   Text(
                     user.nama,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 18), // Non-bold font
                   ),
                 ],
               ),
               SizedBox(height: 8),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.home, color: Colors.blue),
                   SizedBox(width: 8),
                   Text(
                     user.loc,
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 16), // Non-bold font
                   ),
                 ],
               ),
               SizedBox(height: 16),
               Text(
                 'Description',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold), // Larger and bold
               ),
               SizedBox(height: 8),
               Text(
                 user.desc,
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 16),
               ),
               Spacer(),
-              ElevatedButton.icon(
-                onPressed: () {
-                  addCrush(context);
-                },
-                icon: Icon(Icons.favorite_border),
-                label: Text('Add Crush'),
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+              Center(
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    addCrush(context);
+                  },
+                  icon: Icon(Icons.favorite_border),
+                  label: Text('Add Crush'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.lightBlueAccent, 
+                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12), // Longer button
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    textStyle: TextStyle(
+                      color: Colors.white, // Text color that complements the button color
+                    ),
                   ),
                 ),
               ),
