@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pr_mobile_mdp/screens/edit_screen.dart';
-import 'package:pr_mobile_mdp/screens/setting_screen.dart';
+import 'package:mdp_gacoan/screens/edit_screen.dart';
+import 'package:mdp_gacoan/screens/setting_screen.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({super.key});

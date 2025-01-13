@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pr_mobile_mdp/screens/crush_screen.dart';
-import 'package:pr_mobile_mdp/screens/home_screen.dart';
-import 'package:pr_mobile_mdp/screens/more_screen.dart';
-import 'package:pr_mobile_mdp/screens/search_screen.dart';
-import 'package:pr_mobile_mdp/screens/detail_screen.dart';
+import 'package:mdp_gacoan/screens/crush_screen.dart';
+import 'package:mdp_gacoan/screens/home_screen.dart';
+import 'package:mdp_gacoan/screens/more_screen.dart';
+import 'package:mdp_gacoan/screens/search_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

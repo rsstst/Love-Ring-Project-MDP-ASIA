@@ -1,6 +1,6 @@
 {
-    "name": "pr_mobile_mdp",
-    "short_name": "pr_mobile_mdp",
+    "name": "mdp_gacoan",
+    "short_name": "mdp_gacoan",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

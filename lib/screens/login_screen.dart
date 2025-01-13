@@ -1,7 +1,7 @@
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:pr_mobile_mdp/models/user.dart';
-import 'package:pr_mobile_mdp/data/user_data.dart';
+import 'package:mdp_gacoan/models/user.dart';
+import 'package:mdp_gacoan/data/user_data.dart';
+import 'package:mdp_gacoan/screens/signup_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -191,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   //TODO : method sign up
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => SignInScreen()));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
                     },
                     child: const Text(
                       'Sign up',

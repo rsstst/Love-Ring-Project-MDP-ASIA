@@ -1,8 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:pr_mobile_mdp/models/user.dart';
-import 'package:pr_mobile_mdp/data/user_data.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:mdp_gacoan/models/user.dart';
+import 'package:mdp_gacoan/data/user_data.dart';
+import 'package:mdp_gacoan/screens/detail_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -115,9 +117,13 @@ class _SearchScreenState extends State<SearchScreen> {
                                     const EdgeInsets.symmetric(vertical: 8.0),
                                 child: GestureDetector(
                                   onTap: () {
-                                    // Navigate to the DetailScreen when tapped
-                                    Navigator.pushReplacementNamed(
-                                        context, '/detail');
+                                    // TODO: Navigasi ke halaman detail pengguna saat item diklik
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => DetailScreen(user: user),
+                                      ),
+                                    );
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.all(12.0),
@@ -138,14 +144,14 @@ class _SearchScreenState extends State<SearchScreen> {
                                       children: [
                                         CircleAvatar(
                                           backgroundImage:
-                                              AssetImage(user.profil),
+                                          AssetImage(user.profil),
                                           radius: 40,
                                         ),
                                         const SizedBox(width: 12),
                                         Expanded(
                                           child: Column(
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 user.nama,
@@ -167,7 +173,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                         ),
                                         IconButton(
                                           icon:
-                                              const Icon(Icons.favorite_border),
+                                          const Icon(Icons.favorite_border),
                                           onPressed: () {
                                             // Navigate to the CrushScreen when favorite icon is pressed
                                             addToCrushList(user);
@@ -192,7 +198,7 @@ class _SearchScreenState extends State<SearchScreen> {
 }
 
 class CircleBackground extends StatelessWidget {
-  const CircleBackground({super.key});
+  const CircleBackground({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

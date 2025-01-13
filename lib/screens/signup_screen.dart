@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pr_mobile_mdp/screens/login_screen.dart';
+import 'package:mdp_gacoan/screens/login_screen.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});

@@ -1,105 +1,114 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+import 'crush_screen.dart'; // Import CrushScreen
+import 'package:mdp_gacoan/models/user.dart';
 
 class DetailScreen extends StatelessWidget {
-  final String name;
-  final String location;
-  final String description;
-  final String profileImage;
+  final User user;
 
-  const DetailScreen({
-    Key? key,
-    required this.name,
-    required this.location,
-    required this.description,
-    required this.profileImage,
-  }) : super(key: key);
+  DetailScreen({required this.user});
+
+  Future<void> addCrush(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String>? savedCrushList = prefs.getStringList('crushList') ?? [];
+
+    // Convert User to Map
+    Map<String, dynamic> crushData = {
+      "name": user.nama,
+      "loc": user.loc,
+      "image": user.profil,
+      "likes": 0 // Add default likes value
+    };
+
+    // Add new crush
+    savedCrushList.add(jsonEncode(crushData));
+
+    // Save updated list to shared preferences
+    await prefs.setStringList('crushList', savedCrushList);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('${user.nama} added to Crush List!')),
+    );
+
+    // Navigate back to CrushScreen
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CrushScreen()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(name),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black),
-        titleTextStyle: const TextStyle(
-          color: Colors.black,
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
+        title: Text('Detail Profile'),
       ),
-      body: SingleChildScrollView(
+      body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Profile Image
               CircleAvatar(
-                radius: 60,
-                backgroundImage: NetworkImage(profileImage),
+                radius: 50,
+                backgroundImage: NetworkImage(user.profil),
               ),
-              const SizedBox(height: 16),
-              // Name
+              SizedBox(height: 8),
               Text(
-                name,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+                'ID: ${user.Id}',
+                style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
-              const SizedBox(height: 8),
-              // Location
+              SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.location_on, color: Colors.grey, size: 20),
-                  const SizedBox(width: 4),
+                  Icon(Icons.person, color: Colors.blue),
+                  SizedBox(width: 8),
                   Text(
-                    location,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey,
-                    ),
+                    user.nama,
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
-              // Description
+              SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.home, color: Colors.blue),
+                  SizedBox(width: 8),
+                  Text(
+                    user.loc,
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16),
               Text(
-                description,
+                'Description',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 8),
+              Text(
+                user.desc,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.black87,
-                  height: 1.5,
-                ),
+                style: TextStyle(fontSize: 16),
               ),
-              const SizedBox(height: 24),
-              // Contact Button
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Add your action here
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                  ),
-                  child: const Text(
-                    'Contact Me',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+              Spacer(),
+              ElevatedButton.icon(
+                onPressed: () {
+                  addCrush(context);
+                },
+                icon: Icon(Icons.favorite_border),
+                label: Text('Add Crush'),
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
               ),
+              SizedBox(height: 8),
             ],
           ),
         ),

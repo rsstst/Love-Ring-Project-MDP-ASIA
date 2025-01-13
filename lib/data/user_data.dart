@@ -1,4 +1,4 @@
-import 'package:pr_mobile_mdp/models/user.dart';
+import 'package:mdp_gacoan/models/user.dart';
 
 Map<String, User> userList = {
   'Gigih': User(
@@ -37,6 +37,22 @@ Map<String, User> userList = {
       profil: 'images/risky.jpg',
       desc:
           'Aku adalah seorang pria berusia 28 tahun yang lahir di Bali dan kini tinggal di Jakarta. Hobiku adalah bermain sepak bola, bersepeda, dan mendalami seni peran. Sebagai seorang aktor, aku telah berperan dalam berbagai film dan sinetron yang menginspirasi banyak orang. Aku juga seorang penyanyi yang menikmati musik sebagai bagian dari hidupku.'),
+  'Mohan': User(
+      Id: 'ar14m0114n',
+      username: 'Mohan',
+      password: 'halomoh',
+      nama: 'Arya Mohan',
+      loc: 'Jl. Jakarta No. 22',
+      profil: 'images/mohan.jpg',
+      desc:'Aku adalah seorang pria umur 22 tahun yang lahir di Jakarta, Hobiku  bermain basket. Dulu juga sempet jadi pemain film disalah satu acara tv.'),
+  'Heri': User(
+      Id: 'HER1PR4J4',
+      username: 'Heri',
+      password: 'haiheri',
+      nama: 'Heri Praja Anggara',
+      loc: 'Jl. In Aja Dulu No. 12',
+      profil: 'images/heri.jpg',
+      desc:'Aku adalah seorang pria umur 23 tahun, lahir di Malang, Jawa timur. tetapi sekarang aku sedang bekerja disalah satu kantor yang berada di jakarta.'),
   'Fikri': User(
       Id: 'A1C7O2R8',
       username: 'Fikri',
@@ -63,5 +79,45 @@ Map<String, User> userList = {
       loc: 'Jl. Menteng No. 8, Jakarta',
       profil: 'images/maxime.jpg',
       desc:
-          'Aku seorang aktor dan penyanyi berusia 27 tahun yang lahir di Paris, Prancis, namun kini tinggal di Jakarta. Sejak kecil, aku sudah tertarik pada dunia seni, dan aku mulai berkarir di industri hiburan sejak remaja. Aku telah membintangi berbagai film dan sinetron yang membuatku dikenal luas. Selain itu, aku juga aktif dalam dunia musik, sering menulis lagu dan tampil di berbagai acara. Aku sangat menyukai olahraga dan petualangan, serta sering berbagi cerita dengan penggemarku di media sosial.')
+          'Aku seorang aktor dan penyanyi berusia 27 tahun yang lahir di Paris, Prancis, namun kini tinggal di Jakarta. Sejak kecil, aku sudah tertarik pada dunia seni, dan aku mulai berkarir di industri hiburan sejak remaja. Aku telah membintangi berbagai film dan sinetron yang membuatku dikenal luas. Selain itu, aku juga aktif dalam dunia musik, sering menulis lagu dan tampil di berbagai acara. Aku sangat menyukai olahraga dan petualangan, serta sering berbagi cerita dengan penggemarku di media sosial.'),
+  'Anjani': User(
+      Id: '4NJ4N1',
+      username: 'Anjani',
+      password: 'katasandi',
+      nama: 'Anjani Putri',
+      loc: 'Jl. Ijen Nirwana No.1',
+      profil: 'images/anjani.jpg',
+      desc:'Aku adalah seorang wanita berusia 22 tahun. Aku berasal dari Surabaya, tetapi sekarang tinggal di Yogyakarta. Hobiku adalah membaca, menulis puisi, dan memasak.'),
+  'Dinda': User(
+      Id: 'D1ND4R4N',
+      username: 'Dinda',
+      password: 'haidinda',
+      nama: 'Dinda Aura Eca',
+      loc: 'Jl. Ijen Nirwana No.1',
+      profil: 'images/dinda.jpg',
+      desc:'Aku perempuan berusia 20 tahun. Aku lahir di Bandung, tetapi sekarang berdomisili di Bali. Hobiku adalah mendaki gunung, menyulam, dan bersepeda.'),
+  'ica': User(
+      Id: '1C4L4L4',
+      username: 'Ica',
+      password: 'katakata',
+      nama: 'Ica Andini Putri',
+      loc: 'Jl. Ijen Nirwana No.1',
+      profil: 'images/ica.jpg',
+      desc:'Aku seorang wanita berusia 23 tahun. Aku berasal dari Makassar, tapi saat ini tinggal di Semarang. Hobiku adalah melukis, berkebun, dan mendengarkan musik klasik.'),
+  'Naura': User(
+      Id: 'n4ur4h4h4',
+      username: 'Naura',
+      password: 'sandinya',
+      nama: 'Naura Maharani',
+      loc: 'Jl. Ijen Nirwana No.1',
+      profil: 'images/naura.jpg',
+      desc:'Aku perempuan 24 tahun dari Medan, tapi sekarang aku tinggal di Malang. Hobiku adalah membuat kerajinan tangan, yoga, dan menonton film dokumenter.'),
+  'Selena': User(
+      Id: '5ELEN4G0M',
+      username: 'Selena',
+      password: 'haisel',
+      nama: 'Selena Gomes',
+      loc: 'Jl. Ijen Nirwana No.1',
+      profil: 'images/selena.jpg',
+      desc:'Aku seorang wanita berusia 25 tahun. Aku berasal dari Palembang, tetapi kini tinggal di Surakarta. Hobiku adalah merajut, berenang, dan menari tradisional.')
 };
