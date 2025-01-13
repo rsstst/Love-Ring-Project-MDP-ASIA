@@ -5,7 +5,6 @@ import 'package:mdp_gacoan/data/user_data.dart';
 import 'package:mdp_gacoan/screens/detail_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
 
@@ -47,6 +46,7 @@ class _SearchScreenState extends State<SearchScreen> {
       "name": user.nama,
       "image": user.profil,
       "loc": user.loc,
+      "likes": 1,
     }));
 
     // Simpan daftar crush yang diperbarui
@@ -121,7 +121,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => DetailScreen(user: user),
+                                        builder: (context) =>
+                                            DetailScreen(user: user),
                                       ),
                                     );
                                   },
@@ -144,14 +145,14 @@ class _SearchScreenState extends State<SearchScreen> {
                                       children: [
                                         CircleAvatar(
                                           backgroundImage:
-                                          AssetImage(user.profil),
+                                              AssetImage(user.profil),
                                           radius: 40,
                                         ),
                                         const SizedBox(width: 12),
                                         Expanded(
                                           child: Column(
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 user.nama,
@@ -173,7 +174,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                         ),
                                         IconButton(
                                           icon:
-                                          const Icon(Icons.favorite_border),
+                                              const Icon(Icons.favorite_border),
                                           onPressed: () {
                                             // Navigate to the CrushScreen when favorite icon is pressed
                                             addToCrushList(user);
