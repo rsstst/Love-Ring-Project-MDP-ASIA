@@ -10,6 +10,7 @@ import 'package:pr_mobile_mdp/screens/more_screen.dart';
 import 'package:pr_mobile_mdp/screens/search_screen.dart';
 import 'package:pr_mobile_mdp/screens/setting_screen.dart';
 import 'package:pr_mobile_mdp/screens/signup_screen.dart';
+import 'package:pr_mobile_mdp/screens/splash_screen.dart';
 
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,7 +38,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
         theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue)),
-        home: isLoggedIn ? const HomeScreen() : const LoginScreen(),
+        home: SplashScreen(isLoggedIn: isLoggedIn),
         routes: {
           '/main': (context) => const MainScreen(),
           '/login': (context) => const LoginScreen(),
