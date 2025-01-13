@@ -28,8 +28,10 @@ class _SearchScreenState extends State<SearchScreen> {
       final results = userList.values
           .where((user) =>
               user.nama.isNotEmpty &&
-              user.nama[0].toLowerCase() == query.toLowerCase())
+              user.nama.toLowerCase().contains(query.toLowerCase()))
           .toList();
+      results
+          .sort((a, b) => a.nama.toLowerCase().compareTo(b.nama.toLowerCase()));
       setState(() {
         filteredList = results;
       });
