@@ -1,10 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+import 'crush_screen.dart'; // Import CrushScreen
 import 'package:pr_mobile_mdp/models/user.dart';
 
 class DetailScreen extends StatelessWidget {
   final User user;
 
   DetailScreen({required this.user});
+
+  Future<void> addCrush(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String>? savedCrushList = prefs.getStringList('crushList') ?? [];
+
+    // Convert User to Map
+    Map<String, dynamic> crushData = {
+      "name": user.nama,
+      "loc": user.loc,
+      "image": user.profil,
+      "likes": 0 // Add default likes value
+    };
+
+    // Add new crush
+    savedCrushList.add(jsonEncode(crushData));
+
+    // Save updated list to shared preferences
+    await prefs.setStringList('crushList', savedCrushList);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('${user.nama} added to Crush List!')),
+    );
+
+    // Navigate back to CrushScreen
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CrushScreen()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,19 +50,16 @@ class DetailScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Foto profil
               CircleAvatar(
                 radius: 50,
                 backgroundImage: NetworkImage(user.profil),
               ),
               SizedBox(height: 8),
-              // ID user
               Text(
                 'ID: ${user.Id}',
                 style: TextStyle(fontSize: 16, color: Colors.grey),
               ),
               SizedBox(height: 16),
-              // Nama user dengan icon
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -43,7 +72,6 @@ class DetailScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 8),
-              // Alamat user dengan icon rumah
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -56,7 +84,6 @@ class DetailScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 16),
-              // Deskripsi user
               Text(
                 'Description',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -68,9 +95,10 @@ class DetailScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 16),
               ),
               Spacer(),
-              // Tombol "Add Crush"
               ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  addCrush(context);
+                },
                 icon: Icon(Icons.favorite_border),
                 label: Text('Add Crush'),
                 style: ElevatedButton.styleFrom(
