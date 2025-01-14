@@ -13,12 +13,9 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  // TODO: Daftar hasil pencarian
   List<User> filteredList = [];
-  // TODO: Controller untuk input pencarian
   TextEditingController searchController = TextEditingController();
 
-  // TODO: Fungsi untuk memfilter pencarian berdasarkan huruf depan nama
   void filterSearch(String query) {
     if (query.isEmpty) {
       setState(() {
@@ -30,8 +27,7 @@ class _SearchScreenState extends State<SearchScreen> {
               user.nama.isNotEmpty &&
               user.nama.toLowerCase().contains(query.toLowerCase()))
           .toList();
-      results
-          .sort((a, b) => a.nama.toLowerCase().compareTo(b.nama.toLowerCase()));
+      results.sort((a, b) => a.nama.toLowerCase().compareTo(b.nama.toLowerCase()));
       setState(() {
         filteredList = results;
       });
@@ -39,11 +35,22 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Future<void> addToCrushList(User user) async {
-    final prefs = await SharedPreferences.getInstance();
-    List<String> crushList =
-        prefs.getStringList('crushList') ?? []; // Ambil daftar crush
+  final prefs = await SharedPreferences.getInstance();
+  List<String> crushList = prefs.getStringList('crushList') ?? [];
 
-    // Tambahkan user ke crushList
+  // Cek apakah user sudah ada dalam daftar crush
+  bool alreadyAdded = crushList.any((item) {
+    final decodedItem = jsonDecode(item);
+    return decodedItem["name"] == user.nama;
+  });
+
+  if (alreadyAdded) {
+    // Tampilkan pesan peringatan jika user sudah ada dalam daftar
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("${user.nama} is already in your crush list!")),
+    );
+  } else {
+    // Tambahkan user ke daftar crush jika belum ada
     crushList.add(jsonEncode({
       "name": user.nama,
       "image": user.profil,
@@ -51,24 +58,18 @@ class _SearchScreenState extends State<SearchScreen> {
       "likes": 1,
     }));
 
-    // Simpan daftar crush yang diperbarui
     await prefs.setStringList('crushList', crushList);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text("${user.nama} added to crush list!")),
     );
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Search for New Crush'),
-        titleTextStyle: TextStyle(
-          fontSize: 22,
-          fontWeight: FontWeight.bold,
-        ),
-        centerTitle: true,
-      ),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Stack(
           children: [
@@ -81,12 +82,21 @@ class _SearchScreenState extends State<SearchScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    // Search input field
+                    const Center(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
+                        child: Text(
+                          'Search for New Crush',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
                     TextField(
                       controller: searchController,
-                      onChanged: (value) {
-                        filterSearch(value);
-                      },
+                      onChanged: filterSearch,
                       decoration: InputDecoration(
                         hintText: 'Search Crush',
                         prefixIcon: const Icon(Icons.search),
@@ -100,7 +110,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         ? Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(height: 300),
+                              const SizedBox(height: 300),
                               Text(
                                 searchController.text.isEmpty
                                     ? ''
@@ -115,11 +125,9 @@ class _SearchScreenState extends State<SearchScreen> {
                         : Column(
                             children: filteredList.map((user) {
                               return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                padding: const EdgeInsets.symmetric(vertical: 8.0),
                                 child: GestureDetector(
                                   onTap: () {
-                                    // TODO: Navigasi ke halaman detail pengguna saat item diklik
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -135,11 +143,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                       borderRadius: BorderRadius.circular(8),
                                       boxShadow: [
                                         BoxShadow(
-                                          color: Color(0xFFB0B0B0),
+                                          color: const Color(0xFFB0B0B0),
                                           spreadRadius: 2,
                                           blurRadius: 5,
-                                          offset: const Offset(0,
-                                              3), // changes position of shadow
+                                          offset: const Offset(0, 3),
                                         ),
                                       ],
                                     ),
@@ -175,10 +182,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                           ),
                                         ),
                                         IconButton(
-                                          icon:
-                                              const Icon(Icons.favorite_border),
+                                          icon: const Icon(Icons.favorite_border),
                                           onPressed: () {
-                                            // Navigate to the CrushScreen when favorite icon is pressed
                                             addToCrushList(user);
                                           },
                                         ),
@@ -211,18 +216,15 @@ class CircleBackground extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 100,
-            backgroundColor: Color(0xFFBBDEFB)
-                .withAlpha(51), // Warna biru muda dengan transparansi 20%
+            backgroundColor: const Color(0xFFBBDEFB).withAlpha(51),
           ),
           CircleAvatar(
             radius: 80,
-            backgroundColor:
-                Color(0xFFBBDEFB).withAlpha(102), // Transparansi 40%
+            backgroundColor: const Color(0xFFBBDEFB).withAlpha(102),
           ),
           CircleAvatar(
             radius: 60,
-            backgroundColor:
-                Color(0xFFBBDEFB).withAlpha(153), // Transparansi 60%
+            backgroundColor: const Color(0xFFBBDEFB).withAlpha(153),
           ),
           const Icon(
             Icons.search_rounded,

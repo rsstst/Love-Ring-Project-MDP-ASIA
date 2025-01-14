@@ -13,24 +13,39 @@ class DetailScreen extends StatelessWidget {
     final prefs = await SharedPreferences.getInstance();
     List<String>? savedCrushList = prefs.getStringList('crushList') ?? [];
 
+    // Data crush yang akan ditambahkan
     Map<String, dynamic> crushData = {
       "name": user.nama,
       "loc": user.loc,
       "image": user.profil,
-      "likes": 7
+      "likes": 1
     };
 
-    savedCrushList.add(jsonEncode(crushData));
-    await prefs.setStringList('crushList', savedCrushList);
+    // Cek apakah crush sudah ada di daftar
+    bool alreadyAdded = savedCrushList.any((item) {
+      final decodedItem = jsonDecode(item);
+      return decodedItem['name'] == user.nama;
+    });
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('${user.nama} added to Crush List!')),
-    );
+    if (alreadyAdded) {
+      // Tampilkan pesan peringatan jika crush sudah ada
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('${user.nama} is already in your Crush List!')),
+      );
+    } else {
+      // Tambahkan crush jika belum ada
+      savedCrushList.add(jsonEncode(crushData));
+      await prefs.setStringList('crushList', savedCrushList);
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => CrushScreen()),
-    );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('${user.nama} added to Crush List!')),
+      );
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => CrushScreen()),
+      );
+    }
   }
 
   @override
@@ -40,7 +55,7 @@ class DetailScreen extends StatelessWidget {
         title: Text(
           user.nama,
           style: TextStyle(
-            fontSize: 15, 
+            fontSize: 15,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -70,13 +85,13 @@ class DetailScreen extends StatelessWidget {
               Center(
                 child: Text(
                   'ID: ${user.Id}',
-                  style: TextStyle(fontSize: 16, color: const Color.fromARGB(255, 0, 0, 0)),
+                  style: TextStyle(fontSize: 16, color: Colors.black),
                 ),
               ),
               SizedBox(height: 16),
               Row(
                 children: [
-                  Icon(Icons.account_circle, color: const Color.fromARGB(255, 129, 88, 206)),
+                  Icon(Icons.account_circle, color: Color.fromARGB(255, 129, 88, 206)),
                   SizedBox(width: 8),
                   Text(
                     user.nama,
@@ -87,7 +102,7 @@ class DetailScreen extends StatelessWidget {
               SizedBox(height: 8),
               Row(
                 children: [
-                  Icon(Icons.location_on, color: const Color.fromARGB(255, 129, 88, 206)),
+                  Icon(Icons.location_on, color: Color.fromARGB(255, 129, 88, 206)),
                   SizedBox(width: 8),
                   Text(
                     user.loc,
@@ -113,7 +128,7 @@ class DetailScreen extends StatelessWidget {
                     addCrush(context);
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 129, 88, 206),
+                    backgroundColor: Color.fromARGB(255, 129, 88, 206),
                     padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -124,12 +139,12 @@ class DetailScreen extends StatelessWidget {
                     children: [
                       Text(
                         'Add Crush',
-                        style: TextStyle(color: Colors.white),  
+                        style: TextStyle(color: Colors.white),
                       ),
                       SizedBox(width: 8),
                       Icon(
                         Icons.favorite_border,
-                        color: Colors.white,  
+                        color: Colors.white,
                       ),
                     ],
                   ),
