@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import 'crush_screen.dart'; // Import CrushScreen
+import 'crush_screen.dart';
 import 'package:mdp_gacoan/models/user.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -13,25 +13,20 @@ class DetailScreen extends StatelessWidget {
     final prefs = await SharedPreferences.getInstance();
     List<String>? savedCrushList = prefs.getStringList('crushList') ?? [];
 
-    // Convert User to Map
     Map<String, dynamic> crushData = {
       "name": user.nama,
       "loc": user.loc,
       "image": user.profil,
-      "likes": 7 // Add default likes value
+      "likes": 7
     };
 
-    // Add new crush
     savedCrushList.add(jsonEncode(crushData));
-
-    // Save updated list to shared preferences
     await prefs.setStringList('crushList', savedCrushList);
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('${user.nama} added to Crush List!')),
     );
 
-    // Navigate back to CrushScreen
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => CrushScreen()),
@@ -42,7 +37,13 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detail Profile'),
+        title: Text(
+          user.nama,
+          style: TextStyle(
+            fontSize: 15, 
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: Center(
         child: Padding(
@@ -51,37 +52,53 @@ class DetailScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: CircleAvatar(
-                  radius: 60, // Increased radius
-                  backgroundImage: NetworkImage(user.profil),
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 1.0,
+                    ),
+                  ),
+                  child: CircleAvatar(
+                    radius: 70,
+                    backgroundImage: NetworkImage(user.profil),
+                  ),
+                ),
+              ),
+              SizedBox(height: 8),
+              Center(
+                child: Text(
+                  'ID: ${user.Id}',
+                  style: TextStyle(fontSize: 16, color: const Color.fromARGB(255, 0, 0, 0)),
                 ),
               ),
               SizedBox(height: 16),
               Row(
                 children: [
-                  Icon(Icons.person, color: Colors.blue),
+                  Icon(Icons.account_circle, color: const Color.fromARGB(255, 129, 88, 206)),
                   SizedBox(width: 8),
                   Text(
                     user.nama,
-                    style: TextStyle(fontSize: 18), // Non-bold font
+                    style: TextStyle(fontSize: 16),
                   ),
                 ],
               ),
               SizedBox(height: 8),
               Row(
                 children: [
-                  Icon(Icons.home, color: Colors.blue),
+                  Icon(Icons.location_on, color: const Color.fromARGB(255, 129, 88, 206)),
                   SizedBox(width: 8),
                   Text(
                     user.loc,
-                    style: TextStyle(fontSize: 16), // Non-bold font
+                    style: TextStyle(fontSize: 16),
                   ),
                 ],
               ),
               SizedBox(height: 16),
               Text(
                 'Description',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold), // Larger and bold
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
               Text(
@@ -91,21 +108,30 @@ class DetailScreen extends StatelessWidget {
               ),
               Spacer(),
               Center(
-                child: ElevatedButton.icon(
+                child: ElevatedButton(
                   onPressed: () {
                     addCrush(context);
                   },
-                  icon: Icon(Icons.favorite_border),
-                  label: Text('Add Crush'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.lightBlueAccent, 
-                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12), // Longer button
+                    backgroundColor: const Color.fromARGB(255, 129, 88, 206),
+                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    textStyle: TextStyle(
-                      color: Colors.white, // Text color that complements the button color
-                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Add Crush',
+                        style: TextStyle(color: Colors.white),  
+                      ),
+                      SizedBox(width: 8),
+                      Icon(
+                        Icons.favorite_border,
+                        color: Colors.white,  
+                      ),
+                    ],
                   ),
                 ),
               ),
