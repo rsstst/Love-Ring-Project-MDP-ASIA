@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import 'crush_screen.dart'; // Import CrushScreen
+import 'crush_screen.dart';
 import 'package:mdp_gacoan/models/user.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -13,69 +13,96 @@ class DetailScreen extends StatelessWidget {
     final prefs = await SharedPreferences.getInstance();
     List<String>? savedCrushList = prefs.getStringList('crushList') ?? [];
 
-    // Convert User to Map
+    // Data crush yang akan ditambahkan
     Map<String, dynamic> crushData = {
       "name": user.nama,
       "loc": user.loc,
       "image": user.profil,
-      "likes": 0 // Add default likes value
+      "likes": 1
     };
 
-    // Add new crush
-    savedCrushList.add(jsonEncode(crushData));
+    // Cek apakah crush sudah ada di daftar
+    bool alreadyAdded = savedCrushList.any((item) {
+      final decodedItem = jsonDecode(item);
+      return decodedItem['name'] == user.nama;
+    });
 
-    // Save updated list to shared preferences
-    await prefs.setStringList('crushList', savedCrushList);
+    if (alreadyAdded) {
+      // Tampilkan pesan peringatan jika crush sudah ada
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('${user.nama} is already in your Crush List!')),
+      );
+    } else {
+      // Tambahkan crush jika belum ada
+      savedCrushList.add(jsonEncode(crushData));
+      await prefs.setStringList('crushList', savedCrushList);
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('${user.nama} added to Crush List!')),
-    );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('${user.nama} added to Crush List!')),
+      );
 
-    // Navigate back to CrushScreen
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => CrushScreen()),
-    );
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => CrushScreen()),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detail Profile'),
+        title: Text(
+          user.nama,
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CircleAvatar(
-                radius: 50,
-                backgroundImage: NetworkImage(user.profil),
+              Center(
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.black,
+                      width: 1.0,
+                    ),
+                  ),
+                  child: CircleAvatar(
+                    radius: 70,
+                    backgroundImage: NetworkImage(user.profil),
+                  ),
+                ),
               ),
               SizedBox(height: 8),
-              Text(
-                'ID: ${user.Id}',
-                style: TextStyle(fontSize: 16, color: Colors.grey),
+              Center(
+                child: Text(
+                  'ID: ${user.Id}',
+                  style: TextStyle(fontSize: 16, color: Colors.black),
+                ),
               ),
               SizedBox(height: 16),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.person, color: Colors.blue),
+                  Icon(Icons.account_circle, color: Color.fromARGB(255, 129, 88, 206)),
                   SizedBox(width: 8),
                   Text(
                     user.nama,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16),
                   ),
                 ],
               ),
               SizedBox(height: 8),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.home, color: Colors.blue),
+                  Icon(Icons.location_on, color: Color.fromARGB(255, 129, 88, 206)),
                   SizedBox(width: 8),
                   Text(
                     user.loc,
@@ -86,25 +113,40 @@ class DetailScreen extends StatelessWidget {
               SizedBox(height: 16),
               Text(
                 'Description',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
               Text(
                 user.desc,
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 16),
               ),
               Spacer(),
-              ElevatedButton.icon(
-                onPressed: () {
-                  addCrush(context);
-                },
-                icon: Icon(Icons.favorite_border),
-                label: Text('Add Crush'),
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    addCrush(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 129, 88, 206),
+                    padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Add Crush',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      SizedBox(width: 8),
+                      Icon(
+                        Icons.favorite_border,
+                        color: Colors.white,
+                      ),
+                    ],
                   ),
                 ),
               ),
