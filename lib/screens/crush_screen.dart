@@ -73,21 +73,24 @@ class _CrushScreenState extends State<CrushScreen> {
           ? const Center(
               child: Text("No Crushes Yet"),
             )
-          : Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                  childAspectRatio: 0.65,
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                    childAspectRatio: 0.65,
+                  ),
+                  itemCount: crushList.length,
+                  shrinkWrap: true,
+                  physics: const ClampingScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    final crush = crushList[index];
+                    return buildCrushCard(crush);
+                  },
                 ),
-                itemCount: crushList.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  final crush = crushList[index];
-                  return buildCrushCard(crush);
-                },
               ),
             ),
     );
@@ -113,16 +116,14 @@ class _CrushScreenState extends State<CrushScreen> {
               ),
             ),
             const SizedBox(height: 8),
-            Expanded(
-              child: Text(
-                crush["name"],
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  color: Colors.black,
-                ),
-                textAlign: TextAlign.center,
+            Text(
+              crush["name"],
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Colors.black,
               ),
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 4),
             Text(
