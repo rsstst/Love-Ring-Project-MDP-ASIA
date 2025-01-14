@@ -135,7 +135,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                       borderRadius: BorderRadius.circular(8),
                                       boxShadow: [
                                         BoxShadow(
-                                          color: Colors.grey.withOpacity(0.2),
+                                          color: Color(0xFFB0B0B0),
                                           spreadRadius: 2,
                                           blurRadius: 5,
                                           offset: const Offset(0,
@@ -211,19 +211,22 @@ class CircleBackground extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 100,
-            backgroundColor: Colors.blue.shade100.withOpacity(0.2),
+            backgroundColor: Color(0xFFBBDEFB)
+                .withAlpha(51), // Warna biru muda dengan transparansi 20%
           ),
           CircleAvatar(
             radius: 80,
-            backgroundColor: Colors.blue.shade100.withOpacity(0.4),
+            backgroundColor:
+                Color(0xFFBBDEFB).withAlpha(102), // Transparansi 40%
           ),
           CircleAvatar(
             radius: 60,
-            backgroundColor: Colors.blue.shade100.withOpacity(0.6),
+            backgroundColor:
+                Color(0xFFBBDEFB).withAlpha(153), // Transparansi 60%
           ),
           const Icon(
             Icons.search_rounded,
-            color: Colors.black,
+            color: Color(0xFF000080),
             size: 40,
           ),
         ],
