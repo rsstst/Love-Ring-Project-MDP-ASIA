@@ -1,102 +1,116 @@
-import 'package:flutter/material.dart'; 
-import 'package:shared_preferences/shared_preferences.dart'; 
-import 'dart:convert';  
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
-class CrushScreen extends StatefulWidget {   
-  const CrushScreen({super.key});    
+class CrushScreen extends StatefulWidget {
+  const CrushScreen({super.key});
 
-  @override   
-  State<CrushScreen> createState() => _CrushScreenState(); 
-}  
+  @override
+  State<CrushScreen> createState() => _CrushScreenState();
+}
 
-class _CrushScreenState extends State<CrushScreen> {   
-  List<Map<String, dynamic>> crushList = [];    
+class _CrushScreenState extends State<CrushScreen> {
+  List<Map<String, dynamic>> crushList = [];
 
-  @override   
-  void initState() {     
-    super.initState();     
-    loadCrushList();   
-  }    
+  @override
+  void initState() {
+    super.initState();
+    loadCrushList();
+  }
 
-  Future<void> loadCrushList() async {     
-    final prefs = await SharedPreferences.getInstance();     
-    List<String>? savedCrushList = prefs.getStringList('crushList');      
+  Future<void> loadCrushList() async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String>? savedCrushList = prefs.getStringList('crushList');
 
-    if (savedCrushList != null) {       
-      try {         
-        setState(() {           
+    if (savedCrushList != null) {
+      try {
+        setState(() {
           crushList = savedCrushList
               .map((item) => jsonDecode(item) as Map<String, dynamic>)
-              .toList();         
-        });       
-      } catch (e) {         
-        print("Error decoding crush list: $e");       
-      }     
-    } else {       
-      setState(() {         
-        crushList = [];       
-      });     
-    }   
-  }    
+              .toList();
+        });
+      } catch (e) {
+        print("Error decoding crush list: $e");
+      }
+    } else {
+      setState(() {
+        crushList = [];
+      });
+    }
+  }
 
-  Future<void> saveCrushList() async {     
-    final prefs = await SharedPreferences.getInstance();     
-    List<String> encodedList = crushList.map((item) => jsonEncode(item)).toList();     
-    await prefs.setStringList('crushList', encodedList);   
-  }    
+  Future<void> saveCrushList() async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> encodedList =
+        crushList.map((item) => jsonEncode(item)).toList();
+    await prefs.setStringList('crushList', encodedList);
+  }
 
-  Future<void> removeCrush(Map<String, dynamic> crush) async {     
-    setState(() {       
-      crushList.remove(crush);     
-    });      
+  Future<void> removeCrush(Map<String, dynamic> crush) async {
+    setState(() {
+      crushList.remove(crush);
+    });
 
-    final prefs = await SharedPreferences.getInstance();     
-    List<String> updatedList = crushList.map((item) => jsonEncode(item)).toList();     
-    await prefs.setStringList('crushList', updatedList);      
+    final prefs = await SharedPreferences.getInstance();
+    List<String> updatedList =
+        crushList.map((item) => jsonEncode(item)).toList();
+    await prefs.setStringList('crushList', updatedList);
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('${crush["name"]} removed from Crush List!')),
-    );   
-  }     
+    );
+  }
 
-  @override   
-  Widget build(BuildContext context) {     
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text("My Crush"),
-        backgroundColor: Colors.blue.shade600,
-        centerTitle: true,
-        elevation: 0,
-      ),
-      body: crushList.isEmpty
-          ? const Center(
-              child: Text("No Crushes Yet"),
-            )
-          : SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16,
-                    childAspectRatio: 0.65,
+      body: SafeArea(
+        child: Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Center(
+                child: Text(
+                  "My Crush",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                    color: Colors.black,
                   ),
-                  itemCount: crushList.length,
-                  shrinkWrap: true,
-                  physics: const ClampingScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    final crush = crushList[index];
-                    return buildCrushCard(crush);
-                  },
                 ),
               ),
             ),
+            Expanded(
+              child: crushList.isEmpty
+                  ? const Center(
+                      child: Text("No Crushes Yet"),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 16,
+                          mainAxisSpacing: 16,
+                          childAspectRatio: 0.65,
+                        ),
+                        itemCount: crushList.length,
+                        itemBuilder: (context, index) {
+                          final crush = crushList[index];
+                          return buildCrushCard(crush);
+                        },
+                      ),
+                    ),
+            ),
+          ],
+        ),
+      ),
     );
-  }    
+  }
 
-  Widget buildCrushCard(Map<String, dynamic> crush) {     
+  Widget buildCrushCard(Map<String, dynamic> crush) {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
@@ -162,6 +176,6 @@ class _CrushScreenState extends State<CrushScreen> {
           ],
         ),
       ),
-    );   
+    );
   }
 }
