@@ -1,10 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:mdp_gacoan/screens/edit_screen.dart';
 import 'package:mdp_gacoan/screens/setting_screen.dart';
+import 'package:mdp_gacoan/data/user_data.dart';
+import 'package:mdp_gacoan/models/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class MoreScreen extends StatelessWidget {
+class MoreScreen extends StatefulWidget {
   const MoreScreen({super.key});
 
+  @override
+  State<MoreScreen> createState() => _MoreScreenState();
+}
+
+class _MoreScreenState extends State<MoreScreen> {
+  String username = '';
+  String Id = '';
+  String description = '';
+  String profil = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  _loadUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? storedUsername = prefs.getString('username');
+
+    if (storedUsername != null) {
+      setState(() {
+        username = storedUsername;
+        User? user = userList[username]; 
+        profil = user?.profil ?? '';
+        Id = user?.Id ?? ''; 
+        description = user?.desc ?? ''; 
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,22 +50,20 @@ class MoreScreen extends StatelessWidget {
               const SizedBox(height: 32),
 
               // Profile Picture
-              const Center(
+              Center(
                 child: CircleAvatar(
                   radius: 60,
-                  backgroundImage: NetworkImage(
-                      'https://i.pinimg.com/550x/b0/0e/36/b00e36dac290fa0e34db0a40a23c7d53.jpg'),
+                  backgroundImage: AssetImage(profil), 
                 ),
               ),
-
               const SizedBox(height: 16),
 
               // Name and Heart ID
-              const Center(
+              Center(
                 child: Column(
                   children: [
                     Text(
-                      'Aleena Calista Gabriella',
+                      username,
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -41,7 +72,7 @@ class MoreScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      'Heart ID : D41W615',
+                      'Heart ID : $Id',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
@@ -55,10 +86,10 @@ class MoreScreen extends StatelessWidget {
               const SizedBox(height: 24),
 
               // Description
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24.0),
                 child: Text(
-                  'Aku seorang gadis berusia 21 tahun. Asal Surabaya tapi sekarang lagi tinggal di Palembang. Aku sangat menyukai olahraga, terutama berlari dan voli.',
+                  description,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 14,
@@ -78,7 +109,7 @@ class MoreScreen extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                       side: BorderSide(color: Colors.grey.shade300),
@@ -124,7 +155,7 @@ class MoreScreen extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                       side: BorderSide(color: Colors.grey.shade300),

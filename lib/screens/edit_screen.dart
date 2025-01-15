@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mdp_gacoan/data/user_data.dart'; 
+import 'package:mdp_gacoan/models/user.dart'; 
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditScreen extends StatefulWidget {
   const EditScreen({super.key});
@@ -8,10 +11,49 @@ class EditScreen extends StatefulWidget {
 }
 
 class _EditScreenState extends State<EditScreen> {
+  String username = '';
+  String description = '';
+  String profil = '';
+
+  // Controllers to handle text fields
+  late TextEditingController nameController;
+  late TextEditingController descriptionController;
+
+  @override
+  void initState() {
+    super.initState();
+    nameController = TextEditingController();
+    descriptionController = TextEditingController();
+    _loadUserData();
+  }
+
+  _loadUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? storedUsername = prefs.getString('username');
+
+    if (storedUsername != null) {
+      setState(() {
+        username = storedUsername;
+        User? user = userList[username];
+        profil = user?.profil ?? '';
+        description = user?.desc ?? '';
+        nameController.text = username;
+        descriptionController.text = description;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F8FF), // Light background
+      backgroundColor: const Color(0xFFF8F8FF), 
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -39,108 +81,92 @@ class _EditScreenState extends State<EditScreen> {
             Stack(
               alignment: Alignment.bottomRight,
               children: [
-                const CircleAvatar(
-                  radius: 60,
-                  backgroundImage: AssetImage(
-                      'assets/profile_picture.jpg'), // Replace with your image asset
-                ),
                 Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: const BoxDecoration(
-                    color: Colors.black,
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.favorite,
-                    color: Colors.white,
-                    size: 20,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 5,
+                            ),
+                            shape: BoxShape.circle
+                          ),
+                          child: const CircleAvatar(
+                            radius: 50,
+                            backgroundImage: AssetImage(profil),
+                          ),
+                        ),
+                        Stack(
+                          alignment: Alignment.center,
+                          children: const [
+                            Icon(
+                              Icons.camera_alt,
+                              color: Colors.black,
+                              size: 30,
+                              ),
+                            Icon(
+                              Icons.favorite,
+                              color: Colors.white,
+                              size: 20, // Ukuran lebih kecil untuk ikon hati
+                            ),
+                          ],
+                        ),
+                ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  'Name',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 24),
-            // Name Field
-            const EditableField(
-              label: 'Name',
-              value: 'Aleena Calista Gabriella',
+            const SizedBox(height: 8),
+            TextFormField(
+              controller: nameController,
+              decoration: InputDecoration(
+                suffixIcon: const Icon(Icons.edit, color: Color(0xFFE1D0E1)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide.none,
+                ),
+                filled: true,
+                fillColor: const Color(0xFFF7F4FA),
+              ),
             ),
-            const SizedBox(height: 16),
-            // Description Field
-            const EditableField(
-              label: 'Description',
-              value:
-                  'Aku seorang gadis berusia 21 tahun. Asal Surabaya tapi sekarang lagi tinggal di Palembang. Aku sangat menyukai olahraga, terutama berlari dan voli.',
+            const SizedBox(height: 20),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  'Description',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            TextFormField(
+              controller: descriptionController,
               maxLines: 4,
+              decoration: InputDecoration(
+                suffixIcon: const Icon(Icons.edit, color: Color(0xFFE1D0E1)),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide.none,
+                ),
+                filled: true,
+                fillColor: const Color(0xFFF7F4FA),
+              ),
             ),
           ],
         ),
       ),
-    );
-  }
-}
-
-class EditableField extends StatelessWidget {
-  final String label;
-  final String value;
-  final int maxLines;
-
-  const EditableField({
-    Key? key,
-    required this.label,
-    required this.value,
-    this.maxLines = 1,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey[700],
-          ),
-        ),
-        const SizedBox(height: 8),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.1),
-                blurRadius: 6,
-                offset: const Offset(0, 3),
-              ),
-            ],
-          ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Text(
-                  value,
-                  maxLines: maxLines,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 8),
-              const Icon(
-                Icons.edit,
-                color: Colors.blue,
-                size: 20,
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }
