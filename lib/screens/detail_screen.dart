@@ -41,10 +41,10 @@ class DetailScreen extends StatelessWidget {
         SnackBar(content: Text('${user.nama} added to Crush List!')),
       );
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => CrushScreen()),
-      );
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => CrushScreen()),
+      // );
     }
   }
 

@@ -153,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             const Text(
               'Heart ID',
               style: TextStyle(
-                color: Color(0xFF6E44FF), // Warna ungu
+                color: Color(0xFF6E44FF), 
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
