@@ -66,7 +66,7 @@ class _CrushScreenState extends State<CrushScreen> {
   return Scaffold(
     appBar: AppBar(
       title: const Text("My Crush"),
-      backgroundColor: Colors.blue.shade600,
+      backgroundColor: Colors. transparent,
       centerTitle: true, // Memposisikan judul di tengah
       automaticallyImplyLeading: false,
       // leading: IconButton(
