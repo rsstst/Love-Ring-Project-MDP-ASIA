@@ -68,12 +68,13 @@ class _CrushScreenState extends State<CrushScreen> {
       title: const Text("My Crush"),
       backgroundColor: Colors.blue.shade600,
       centerTitle: true, // Memposisikan judul di tengah
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back),
-        onPressed: () {
-          Navigator.pop(context); // Navigasi kembali ke halaman sebelumnya
-        },
-      ),
+      automaticallyImplyLeading: false,
+      // leading: IconButton(
+      //   icon: const Icon(Icons.arrow_back),
+      //   onPressed: () {
+      //     Navigator.pop(context); // Navigasi kembali ke halaman sebelumnya
+      //   },
+      // ),
     ),
       backgroundColor: Colors.white,
       body: SafeArea(
