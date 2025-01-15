@@ -63,24 +63,22 @@ class _CrushScreenState extends State<CrushScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+  return Scaffold(
+    appBar: AppBar(
+      title: const Text("My Crush"),
+      backgroundColor: Colors.blue.shade600,
+      centerTitle: true, // Memposisikan judul di tengah
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () {
+          Navigator.pop(context); // Navigasi kembali ke halaman sebelumnya
+        },
+      ),
+    ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Center(
-                child: Text(
-                  "My Crush",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            ),
             Expanded(
               child: crushList.isEmpty
                   ? const Center(
