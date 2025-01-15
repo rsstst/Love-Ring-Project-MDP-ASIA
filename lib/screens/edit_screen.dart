@@ -42,7 +42,7 @@ class _EditScreenState extends State<EditScreen> {
                 const CircleAvatar(
                   radius: 60,
                   backgroundImage: AssetImage(
-                      'assets/profile_picture.jpg'), // Replace with your image asset
+                      'images/anjani.jpg'), // Replace with your image asset
                 ),
                 Container(
                   padding: const EdgeInsets.all(6),
