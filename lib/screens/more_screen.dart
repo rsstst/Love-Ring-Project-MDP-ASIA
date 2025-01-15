@@ -65,9 +65,9 @@ class _MoreScreenState extends State<MoreScreen> {
                     Text(
                       username,
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 22,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF233C7B), // Dark blue color
+                        color: Color(0xFF233C7B), 
                       ),
                     ),
                     SizedBox(height: 4),
@@ -87,7 +87,7 @@ class _MoreScreenState extends State<MoreScreen> {
 
               // Description
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.0),
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
                 child: Text(
                   description,
                   textAlign: TextAlign.center,
@@ -102,7 +102,7 @@ class _MoreScreenState extends State<MoreScreen> {
 
               // Edit Profile Button
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => EditScreen()));

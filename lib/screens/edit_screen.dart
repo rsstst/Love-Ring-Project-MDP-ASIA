@@ -89,7 +89,7 @@ class _EditScreenState extends State<EditScreen> {
                             ),
                             shape: BoxShape.circle
                           ),
-                          child: const CircleAvatar(
+                          child: CircleAvatar(
                             radius: 50,
                             backgroundImage: AssetImage(profil),
                           ),
