@@ -20,8 +20,8 @@ class MoreScreen extends StatelessWidget {
               const Center(
                 child: CircleAvatar(
                   radius: 60,
-                  backgroundImage: NetworkImage(
-                      'https://i.pinimg.com/550x/b0/0e/36/b00e36dac290fa0e34db0a40a23c7d53.jpg'),
+                  backgroundImage: AssetImage(
+                      'images/anjani.jpg'),
                 ),
               ),
 
