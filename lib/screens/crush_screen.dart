@@ -87,12 +87,13 @@ class _CrushScreenState extends State<CrushScreen> {
                   : Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(), // Membantu scroll secara fleksibel
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          crossAxisSpacing: 16,
-                          mainAxisSpacing: 16,
-                          childAspectRatio: 0.65,
+                          crossAxisSpacing: 5,
+                          mainAxisSpacing: 3,
+                          childAspectRatio: 0.50, // Sesuaikan rasio child untuk mencegah overflow
                         ),
                         itemCount: crushList.length,
                         itemBuilder: (context, index) {
@@ -127,7 +128,7 @@ class _CrushScreenState extends State<CrushScreen> {
                 fit: BoxFit.cover,
               ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 2),
             Text(
               crush["name"],
               style: const TextStyle(
@@ -137,13 +138,13 @@ class _CrushScreenState extends State<CrushScreen> {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 2),
             Text(
               crush["loc"],
               style: const TextStyle(fontSize: 14, color: Colors.grey),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 2),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -155,7 +156,7 @@ class _CrushScreenState extends State<CrushScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 2),
             ElevatedButton(
               onPressed: () {
                 removeCrush(crush);
@@ -163,7 +164,7 @@ class _CrushScreenState extends State<CrushScreen> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue.shade600,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(15),
                 ),
               ),
               child: const Text(
