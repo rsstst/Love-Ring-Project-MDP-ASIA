@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:mdp_gacoan/screens/Home_screen.dart';
 import 'package:mdp_gacoan/screens/Login_screen.dart';
@@ -31,7 +32,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue)),
+            textTheme: GoogleFonts.merriweatherTextTheme(),          
+            colorScheme: ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 130, 0, 236))),
         home: SplashScreen(isLoggedIn: isLoggedIn),
         routes: {
           '/main': (context) => const MainScreen(),
