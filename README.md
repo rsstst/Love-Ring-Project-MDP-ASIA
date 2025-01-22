@@ -1,3 +1,5 @@
-# mdp_gacoan
+# Love Ring
+## MDP x ASIA
+### Kelompok Gacoan
 
-A new Flutter project.
+Aplikasi yang dapat membantu mengungkapkan perasaan secara anonim.
